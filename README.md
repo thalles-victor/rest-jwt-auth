@@ -4,7 +4,7 @@
 
 Este é um pequeno projeto que implementa uma api rest de autenticação usando o framework express e ele consiste em cadastrar usuários na plataforma e também fazer validações usando seu token de autenticação. ele é símples, porém, trouxe vários conceitos como arquitetura limpa, solid testes unitários, validações, contenerização... Além de ferramentas ultilizadas de grande relevância no ecossistema node.
 
-Algo que deve ser observado é que, ele não utiliza banco de dados mas sim um repositório em memória, isto é proposital pois estou implementando inversão de dependência que é um dos conceitos do SOLID, por isso é fácil realizar a troca de repositório a qual vai ser ultilizado. Por mais que não esteja ultilizando qualquer banco de dados ou ORM ou algo semelhante, por isso está aplicação está muito flexível quando diz respeito de persistência de dados e pode ser configurada da forma que preferir.
+Algo que deve ser observado é que, ele não utiliza banco de dados mas sim um repositório em memória, isto é proposital pois estou implementando inversão de dependência que é um dos conceitos do SOLID, por isso é fácil realizar a troca de repositório a qual vai ser ultilizado. Por mais que não esteja ultilizando qualquer banco de dados ou ORM ou algo semelhante isso não afeta a aplicação pois está muito flexível quando diz respeito de persistência de dados e pode ser configurada da forma que preferir.
 
 ## Algumas stacks são
 ![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
