@@ -1,0 +1,577 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Rest API Authentication",
+    "description": "jwt authentication api with nodejs.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Handles authentication of users on the server"
+    }
+  ],
+  "paths": {
+    "/auth/signUp": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "create account.",
+        "summary": "create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "default": "jhon"
+                      },
+                      "email": {
+                        "type": "string",
+                        "default": "jhon@gmail.com"
+                      },
+                      "username": {
+                        "type": "string",
+                        "default": "jhonPlay"
+                      },
+                      "password": {
+                        "type": "string",
+                        "minimum": 6,
+                        "default": "mypass123"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "sucess in create account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "default": "jhon"
+                        },
+                        "email": {
+                          "type": "string",
+                          "default": "jhon@gmail.com"
+                        },
+                        "username": {
+                          "type": "string",
+                          "default": "jhonPlay"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "if the parameters are invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametersError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "if username or email is in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfError": {
+                      "type": "string",
+                      "default": "UNAUTHORIZED"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "email in used"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "default": 401
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "if the email is not registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfError": {
+                      "type": "string",
+                      "default": "NOT_FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "account not found"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "default": 404
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signIn": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "login in a account.",
+        "summary": "login in a account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "default": "jhon@gmail.com"
+                      },
+                      "password": {
+                        "type": "string",
+                        "minimum": 6,
+                        "default": "mypass123"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "sucess in create account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "default": "jhon"
+                        },
+                        "email": {
+                          "type": "string",
+                          "default": "jhon@gmail.com"
+                        },
+                        "username": {
+                          "type": "string",
+                          "default": "jhonPlay"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "if username or email is in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfError": {
+                      "type": "string",
+                      "default": "UNAUTHORIZED"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "email in used"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "default": 401
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post": {
+      "post": {
+        "tags": [
+          "Post"
+        ],
+        "description": "Create a new post",
+        "summary": "Create a new post.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "post": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "default": "Atenticação JWT com node express"
+                      },
+                      "content": {
+                        "type": "string",
+                        "default": "Para criar uma api de autenticação..."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "sucess in create post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string",
+                      "default": "Atenticação JWT com node express"
+                    },
+                    "content": {
+                      "type": "string",
+                      "default": "Para criar uma api de autenticação..."
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "Author": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "name": {
+                          "type": "string",
+                          "default": "jhon"
+                        },
+                        "username": {
+                          "type": "string",
+                          "default": "jhonPlay"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "if the parameters are invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametersError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "if the author of the post does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfError": {
+                      "type": "string",
+                      "default": "NOT_FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "author not found"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "default": 404
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "description": "List all posts",
+        "summary": "List all posts.",
+        "responses": {
+          "201": {
+            "description": "sucess in request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string",
+                        "default": "Atenticação JWT com node express"
+                      },
+                      "content": {
+                        "type": "string",
+                        "default": "Para criar uma api de autenticação..."
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "Author": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "default": "jhon"
+                          },
+                          "username": {
+                            "type": "string",
+                            "default": "jhonPlay"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/{id}": {
+      "delete": {
+        "tags": [
+          "Post"
+        ],
+        "description": "Delete a post",
+        "summary": "delete a post by id.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "id from post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success in delete the post"
+          },
+          "404": {
+            "description": "if the author or post does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "typeOfError": {
+                      "type": "string",
+                      "default": "NOT_FOUND"
+                    },
+                    "message": {
+                      "type": "string",
+                      "default": "author not found"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "default": 404
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ParametersError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "first or only parameter error"
+          },
+          "statusCode": {
+            "description": "http status code error",
+            "type": "number",
+            "default": 400
+          },
+          "typeOfError": {
+            "type": "string",
+            "default": "BAD_REQUEST"
+          },
+          "paramsErrors": {
+            "type": "string",
+            "description": "all erros caused by invalid paramiters"
+          }
+        }
+      },
+      "InternalServerError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "if hear internal error on server",
+            "default": "internal server error"
+          },
+          "statusCode": {
+            "description": "http status code error",
+            "type": "number",
+            "default": 500
+          },
+          "typeOfError": {
+            "type": "string",
+            "default": "INTERNAL_SERVER_ERROR"
+          }
+        }
+      }
+    }
+  }
+}
