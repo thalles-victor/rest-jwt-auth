@@ -2,9 +2,9 @@
 
 ![](https://qbatu.net/wp-content/uploads/2023/01/jwt-1.png)
 
-Este é um pequeno projeto que implementa uma api rest de autenticação usando o framework express e ele consiste em cadastrar usuários na plataforma e também fazer validações usando seu token de autenticação. Este projeto símples, porém ele trouxe vários conceitos como arquitetura limpa, solid testes unitários, validações, contenerização... Além de ferramentas ultilizadas de grande relevância no ecossistema node.
+Este é um pequeno projeto que implementa uma api rest de autenticação usando o framework express e ele consiste em cadastrar usuários na plataforma e também fazer validações usando seu token de autenticação. ele é símples, porém, trouxe vários conceitos como arquitetura limpa, solid testes unitários, validações, contenerização... Além de ferramentas ultilizadas de grande relevância no ecossistema node.
 
-Algo que deve ser observado é que ele não ultiliza banco de dados e seim um repositório em memória, mas isto é proposital. Como estou implementando inversão de dependência que é um dos conceitos do SOLID, a ideia é que seja fácil a troca de repositório a qual vai ser ultilizado. Por mais que não esteja ultilizando qualquer banco de dados ou ORM ou algo semelhante, esta aplicação está muito flexível quando diz respeito de persistência de dados.
+Algo que deve ser observado é que, ele não utiliza banco de dados mas sim um repositório em memória, isto é proposital pois estou implementando inversão de dependência que é um dos conceitos do SOLID, por isso é fácil realizar a troca de repositório a qual vai ser ultilizado. Por mais que não esteja ultilizando qualquer banco de dados ou ORM ou algo semelhante, por isso está aplicação está muito flexível quando diz respeito de persistência de dados e pode ser configurada da forma que preferir.
 
 ## Algumas stacks são
 ![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
@@ -27,13 +27,14 @@ Algo que deve ser observado é que ele não ultiliza banco de dados e seim um re
 
 ### Auth
 - [x] Qualquer usuário poderá se cadastrar na plataforma
+- [x] A senha deve conter no mínimo 6 caracteres
 - [x] Qualquer usuário poderá fazer login usando as credenciais de forma correta
 - [x] O email e o username devem ser únicos
 
 ### Post
 - [x] Qualquer usuário cadastrado vai poder postar um post.
-- [x] Qualquer pessoa estando cadastrado ou não vai poder ver todos os posts.
-- [x] Somente o dono do post vai poder deleta-lo.
+- [x] Qualquer usuário estando cadastrado ou não vai poder ver todos os posts.
+- [x] Somente o author do post vai poder deleta-lo.
 
 ## Execução do projeto
 antes de executar o projeto, é nescessário que na raiz do projeto tenha um arquivo .env criado contendo o seguinte conteúdo:
@@ -42,16 +43,16 @@ antes de executar o projeto, é nescessário que na raiz do projeto tenha um arq
 JWT_SECRET=SRECRET #Chave secreta para assinar o token jwt.
 ```
 
-O json web token usa uma chave que deve ser secreta para assinar ou validar o token, então, ao subir o projeto para produção, deve se colocar uma chave forte para que não seja viável quebrar o token de autenticação.
+O json web token usa uma chave que deve ser secreta para assinar ou validar o token, por isso ao subir o projeto para produção, deve se colocar uma chave forte para que não seja viável quebrar o token de autenticação.
 
 ### execução de desenvolvimento: via node
-O projeto pode ser executado de duas formas, a primeira é via node tradicional o que é nescessário ter o node instalado no seu sistema operacional:
+O projeto pode ser executado de duas formas. A primeira é via node tradicional o que é nescessário ter o node instalado no seu sistema operacional:
 
+Antes de executar é necessário instalar as dependências do projetos rodando:
 ```console
 npm install
 ```
-para instalar as dependências do projeto. E depois exeutar o servidor com o comando:
-
+Depois executar o servidor em modo de desenvolvimento:
 ```console
 npm run dev
 ```
@@ -64,21 +65,18 @@ O servidor irá executar em: http://localhost:3000
 docker compose up
 ```
 
-E da mesma forma o servidor vai executar em: http://localhost:3000, só que desta vez, rodando em um container docker.
+E da mesma forma o servidor vai executar em: http://localhost:3000, só que desta vez, rodando em um container docker espelhado na porta 3000 do seu SO.
 
 ### exeucução de build e produção
-
-Ao subir o projeto para produção é necesário transpilar os arquivos typescript para javascript, para isso rode o comando: 
+Ao subir o projeto para produção é necesário transpilar os arquivos typescript para javascript para que o node consiga entender de forma nativa, para isso rode o comando: 
 ```console
 npm run build
 ```
-Ao gerar a build do projeto, ele vai criar uma pasta na raiz chamada de build, dentro dela tem um arquivo server.js que será o nosso arquivo principal,
-para executar o projeto em produção basta rodar o comando:
+Ao gerar a build do projeto, ele vai criar uma pasta na raiz chamada de build e dentro dela tem um arquivo server.js que será o nosso arquivo de execução principal. Para executar o projeto em produção basta rodar o comando:
 
 ```console
 npm run start
 ```
-
 
 ## Testes
 ![](./git/assets//test.png)
@@ -110,5 +108,5 @@ npm run test
 
 ao executar o servidor, você pode consultar a documentação em http://localhost:3000
 
-eu ultilizei o [swagger ui express](https://github.com/scottie1984/swagger-ui-express) que é uma ferramenta para documentar APIs Rest que carrega a [open api](https://www.openapis.org/) que é uma ferramenta de teste muito últil para ajudar no entendimento e consumo da api. O servidor swagger está disponível no domínio da aplicação.
+eu ultilizei o [swagger ui express](https://github.com/scottie1984/swagger-ui-express) que é uma ferramenta para documentar APIs Rest que carrega a junto a ele [open api](https://www.openapis.org/) que é uma ferramenta de teste muito últil para ajudar no compreensão da api. O servidor swagger está disponível no domínio da aplicação.
 
